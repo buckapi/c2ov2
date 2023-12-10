@@ -1,0 +1,261 @@
+<div>
+<div class="" [hidden]="virtualRouter.routerActive!=='home'">
+  <div class="row" style="--bs-gutter-x:0;">
+    <div class="col-4" *ngIf="global.deviceType==='Desktop' && virtualRouter.routerActive=='login'"></div>
+    <div [ngClass]="{'col-4': global.deviceType === 'Desktop', 'col-12': global.deviceType === 'Mobile'}">
+    <!-- card start -->
+    <section class="section-b-space">
+      <div class="custom-container">
+        <div class="card-box">
+          <div class="card-details">
+            <div class="d-flex justify-content-between">
+              <h5 class="fw-semibold">Disponible</h5>
+              <img src="assets/mpay/images/svg/ellipse.svg" alt="ellipse" />
+            </div>
+  
+            <h1 class="mt-2 text-white">$ {{global.ClientFicha().cldisponible}}</h1>
+  
+            <div class="amount-details">
+              <div class="amount w-50 text-start">
+                <div class="d-flex align-items-center justify-content-start">
+                  <!-- <img class="img-fluid icon" src="assets/mpay/images/svg/arrow-down-right.svg" alt="down" /> -->
+                  <h5>Límimte</h5>
+                </div>
+                <h3 class="text-white">$  {{global.ClientFicha().cllimite}}</h3>
+              </div>
+              <div class="amount w-50 text-end border-0">
+                <div class="d-flex align-items-center justify-content-end">
+                  <!-- <img class="img-fluid icon" src="assets/mpay/images/svg/arrow-up-right.svg" alt="up" /> -->
+                  <h5>Saldo</h5>
+                </div>
+                <h3 class="text-white">$  {{global.ClientFicha().clsaldo}}</h3>
+              </div>
+            </div>
+          </div>
+          <a href="landing.html#add-money" class="add-money theme-color" data-bs-toggle="modal">+ Nueva Orden</a>
+        </div>
+      </div>
+    </section>
+   
+    <section style="top: 0; padding-top: 0;">
+      <div class="custom-container">
+        <div class="profile-section">
+          <!-- <div class="profile-banner">
+            <div class="profile-image">
+              <img class="img-fluid profile-pic" src="assets/images/person/p3.png" alt="p3" />
+            </div>
+          </div> -->
+          <h2 *ngIf="global.type()==='client'"> {{global.ClientFicha().clnombre}}</h2>
+          <h5>+62 78459 25623</h5>
+        </div>
+  
+        <ul class="profile-list">
+          <li>
+            <a href="my-account.html" class="profile-box">
+              <div class="profile-img">
+                <i class="icon" data-feather="bell"></i>
+              </div>
+              <div class="profile-details">
+                <h4>Plazo de entrega</h4>
+                <h1>             
+                <!-- <img class="img-fluid arrow" src="assets/images/svg/arrow.svg" alt="arrow" /> -->
+                {{global.ClientFicha().clplazo}}
+                </h1>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="cards.html" class="profile-box">
+              <div class="profile-img">
+                <i class="icon" data-feather="check-circle"></i>
+              </div>
+              <div class="profile-details">
+                <h4>Monto vencido</h4>
+                <h1>             
+                {{global.ClientFicha().clmontovencido}}  <!-- <img class="img-fluid arrow" src="assets/images/svg/arrow.svg" alt="arrow" /> -->
+              </h1>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="change-password.html" class="profile-box">
+              <div class="profile-img">
+                <i class="icon" data-feather="shopping-bag"></i>
+              </div>
+              <div class="profile-details">
+                <h4>Días vencidos</h4>
+                <h1>              
+                {{global.ClientFicha().cldiasvencido}}  <!-- <img class="img-fluid arrow" src="assets/images/svg/arrow.svg" alt="arrow" /> -->
+               </h1>
+              </div>
+            </a>
+          </li>
+      
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="custom-container">
+        <div class="title">
+          <h2>My Saving Plans</h2>
+          <a href="saving-plans.html">See all</a>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="saving-plan-box">
+              <div class="saving-plan-icon">
+                <img class="img-fluid" src="assets/mpay/images/svg/10.svg" alt="p10" />
+              </div>
+              <h3>New Car</h3>
+              <h6>Amount left</h6>
+              <div class="progress" role="progressbar" aria-label="progressbar" aria-valuenow="0" aria-valuemin="0"
+                aria-valuemax="100">
+                <div class="progress-bar bar1"></div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <h5 class="theme-color">$2,000.00</h5>
+                <img class="img-fluid arrow" src="assets/mpay/images/svg/arrow.svg" alt="arrow" />
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="saving-plan-box">
+              <div class="saving-plan-icon">
+                <img class="img-fluid" src="assets/mpay/images/svg/11.svg" alt="p11" />
+              </div>
+              <h3>Grand Home</h3>
+              <h6>Amount left</h6>
+              <div class="progress" role="progressbar" aria-label="progressbar" aria-valuenow="0" aria-valuemin="0"
+                aria-valuemax="100">
+                <div class="progress-bar bar2"></div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <h5 class="theme-color">$2,000.00</h5>
+                <img class="img-fluid arrow" src="assets/mpay/images/svg/arrow.svg" alt="arrow" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="custom-container">
+        <div class="statistics-banner">
+          <div class="d-flex justify-content-center gap-3">
+            <div class="statistics-image">
+              <i class="icon" data-feather="bar-chart-2"></i>
+            </div>
+            <div class="statistics-content d-block">
+              <h5>Monthly Statistics</h5>
+              <h6>30% better performance than previous</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="panel-space"></section>
+  </div>
+  <div class="col-8" *ngIf="global.deviceType==='Desktop'">
+    <section class="section-b-space">
+      <div class="custom-container">
+        <div class="title">
+          <h2>News Update</h2>
+          <a href="news-update.html">See all</a>
+        </div>
+        <div class="row gy-3">
+          <div class="col-12">
+            <div class="news-update-box">
+              <div class="d-flex align-items-center gap-3">
+                <a href="news-update-details.html">
+                  <img class="img-fluid news-update-image" src="assets/mpay/images/1.jpg" alt="img1" />
+                </a>
+                <div class="news-update-content">
+                  <a href="news-update-details.html">
+                    <h3>Save and invest to obtain more</h3>
+                  </a>
+                  <div class="news-writer">
+                    <h6>13 May, 23</h6>
+                    <h6>-Smith</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="news-update-box">
+              <div class="d-flex align-items-center gap-3">
+                <a href="news-update-details.html">
+                  <img class="img-fluid news-update-image" src="assets/mpay/images/2.jpg" alt="img2" />
+                </a>
+                <div class="news-update-content">
+                  <a href="news-update-details.html">
+                    <h3>How to get more money from savings</h3>
+                  </a>
+                  <div class="news-writer">
+                    <h6>10 May, 23</h6>
+                    <h6>-Laila</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="news-update-box">
+              <div class="d-flex align-items-center gap-3">
+                <a href="news-update-details.html">
+                  <img class="img-fluid news-update-image" src="assets/mpay/images/3.jpg" alt="img3" />
+                </a>
+                <div class="news-update-content">
+                  <a href="news-update-details.html">
+                    <h3>5 Tips on expand your business</h3>
+                  </a>
+                  <div class="news-writer">
+                    <h6>6 May, 23</h6>
+                    <h6>-Brunt</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+  </div>
+    <div class="navbar-menu" [hidden]="global.deviceType!=='Mobile' || virtualRouter.routerActive=='login'">
+      <div class="scanner-bg">
+        <a href="scan-pay.html" class="scanner-btn">
+          
+          <i class="sidebar-icon" data-feather="plus" style="color: white;" ></i>
+        </a>
+      </div>
+      <ul>
+        <li class="active">
+          <a href="landing.html">
+            <div class="icon">
+              <img class="unactive" src="assets/mpay/images/svg/mpay.svg" alt="mPay" />
+              <img class="active" src="assets/mpay/images/svg/mpay-fill.svg" alt="mPay" />
+            </div>
+            <h5 class="active">Inicio</h5>
+          </a>
+        </li>
+  
+    
+        <li></li>
+  
+       
+  
+        <li>
+          <a href="profile.html">
+            <div class="icon">
+              <img class="unactive" src="assets/mpay/images/svg/user.svg" alt="profile" />
+              <img class="active" src="assets/mpay/images/svg/user-fill.svg" alt="profile" />
+            </div>
+            <h5>Profile</h5>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>

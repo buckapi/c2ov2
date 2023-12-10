@@ -1,0 +1,208 @@
+
+  <!-- side bar start -->
+  <div class="offcanvas sidebar-offcanvas offcanvas-start" tabindex="-1" id="offcanvasLeft">
+    <div class="offcanvas-header sidebar-header">
+      <div class="sidebar-logo">
+        <img class="img-fluid logo" src="assets/mpay/images/logo/logo.png" alt="logo" />
+      </div>
+      <div class="balance">
+        <img class="img-fluid balance-bg" src="assets/mpay/images/background/auth-bg.jpg" alt="auth-bg" />
+        <h5>Balance</h5>
+        <h2>$1,06,786.65</h2>
+      </div>
+    </div>
+    <div class="offcanvas-body">
+      <div class="sidebar-content">
+        <ul class="link-section">
+          <li>
+            <a  class="pages pointer" >
+              <i class="sidebar-icon" data-feather="home"></i>
+              <h3>Inicio</h3>
+            </a>
+          </li>
+          <li>
+            <a class="pages">
+              <i class="sidebar-icon" data-feather="file-text"></i>
+               <h3>Órdenes</h3>
+            </a>
+          </li>
+        
+
+          <li>
+            <a (click)="global.signOut()" class="pages pointer" >
+              <i class="sidebar-icon" data-feather="log-out"></i>
+              <h3>Salir</h3>
+            </a>
+          </li>
+        </ul>
+        <div class="mode-switch">
+          <ul class="switch-section">
+            <li>
+              <h3>Modo oscuro</h3>
+              <div class="switch-btn">
+                <input id="dark-switch" type="checkbox" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="auth-header" [hidden]="virtualRouter.routerActive!=='login'">
+    <img class="img-fluid img "  src="assets/mpay/images/logo/logo.png" alt="v1" />
+    <div class="auth-content" >
+      <div>
+        <h2>Click2order</h2>
+        <h4 class="p-0">Inicio de session</h4>
+      </div>
+    </div>
+  </div>
+  <!-- header start -->
+  <header class="section-t-space" [hidden]="virtualRouter.routerActive=='login'">
+    <div class="custom-container">
+      <div class="header-panel">
+        <a class="sidebar-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft">
+          <i class="menu-icon" data-feather="menu"></i>
+        </a>
+        <img class="img-fluid logo" src="assets/mpay/images/logo/logo2.png" alt="logo" />
+
+        <a href="notification.html" class="notification">
+          <i class="notification-icon" data-feather="bell"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+  <!-- header end -->
+ 
+
+
+<app-login></app-login>
+<app-home></app-home>
+  <div class="modal add-money-modal fade" id="add-money" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Add Money</h2>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputcard" class="form-label mb-2">From</label>
+            <div class="d-flex gap-2">
+              <select id="inputcard" class="form-select">
+                <option selected>**** **** **** 1566 - Saving a/c</option>
+                <option>**** **** **** 1566 - Saving a/c</option>
+                <option>**** **** **** 1566 - Saving a/c</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputamount" class="form-label mb-2">Amount</label>
+            <div class="form-input">
+              <input type="number" class="form-control" id="inputamount" />
+            </div>
+          </div>
+          <a href="landing.html" class="btn theme-btn successfully w-100">Deposit</a>
+        </div>
+        <button type="button" class="btn close-btn" data-bs-dismiss="modal">
+          <i class="icon" data-feather="x"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal pay-modal fade" id="pay" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Apple Bill Detail</h2>
+        </div>
+        <div class="modal-body">
+          <ul class="details-list">
+            <li>
+              <h3 class="fw-normal dark-text">Amount</h3>
+              <h3 class="fw-semibold theme-color">$49.85</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Bill date</h3>
+              <h3 class="fw-normal light-text">10 May, 2023</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Due Date</h3>
+              <h3 class="fw-normal error-color">31 May, 2023</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Bill number</h3>
+              <h3 class="fw-normal light-text">BM452695523</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Mobile number</h3>
+              <h3 class="fw-normal light-text">+91 ***** **256</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Bill status</h3>
+              <h3 class="fw-semibold error-color">Unpaid</h3>
+            </li>
+          </ul>
+          <a href="make-payment.html" class="btn theme-btn successfully w-100">Pay</a>
+        </div>
+        <button type="button" class="btn close-btn" data-bs-dismiss="modal">
+          <i class="icon" data-feather="x"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal pay-modal fade" id="paid" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Mobile Bill Detail</h2>
+        </div>
+        <div class="modal-body">
+          <ul class="details-list">
+            <li>
+              <h3 class="fw-normal dark-text">Amount</h3>
+              <h3 class="fw-semibold theme-color">$69.49</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Bill date</h3>
+              <h3 class="fw-normal light-text">10 May, 2023</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Due Date</h3>
+              <h3 class="fw-normal light-text">22 May, 2023</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Bill number</h3>
+              <h3 class="fw-normal light-text">BM452695523</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Mobile number</h3>
+              <h3 class="fw-normal light-text">+91 ***** **256</h3>
+            </li>
+            <li>
+              <h3 class="fw-normal dark-text">Bill status</h3>
+              <h3 class="fw-semibold theme-color">Paid</h3>
+            </li>
+          </ul>
+          <a href="landing.html" class="btn theme-btn successfully w-100">Paid - Thank you !</a>
+        </div>
+        <button type="button" class="btn close-btn" data-bs-dismiss="modal">
+          <i class="icon" data-feather="x"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-bottom addtohome-popup theme-offcanvas" tabindex="-1" id="offcanvas">
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas-body small">
+      <div class="app-info">
+        <img src="assets/mpay/images/logo/48.png" class="img-fluid" alt="" />
+        <div class="content">
+          <h4>mPay App</h4>
+          <a href="landing.html#">www.mPay-app.com</a>
+        </div>
+      </div>
+      <a href="landing.html#!" class="btn theme-btn install-app btn-inline home-screen-btn m-0" id="installapp">Add to
+        Home
+        Screen</a>
+    </div>
+  </div>

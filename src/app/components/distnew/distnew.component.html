@@ -1,0 +1,145 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="../dists">Distribuidores</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Agregar Distirbuidor</a></li>
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"></h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="">
+                                <div class="">
+                                  <ngx-awesome-uploader
+                                  [adapter]="adapter"
+                                  [captions]="captions">
+                                  </ngx-awesome-uploader>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md86" [hidden]="steep!==0">
+                              <div class="">
+                                <div class="">
+                                  <div class="form-group">
+                                    <label for="event-name"style="color:#0A60C2;">Nombre o razón social</label>
+                                    <input class="form-control" placeholder="nombre" type="text" [(ngModel)]="data.name" name="name" required [ngModelOptions]="{standalone: true}">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="">
+                                <div class="">
+                                  <div class="form-group">
+                                    <label for="event-address" style="color:#0A60C2;">Dirección</label>
+                                    <textarea [ngModelOptions]="{standalone: true}" [(ngModel)]="data.address" class="form-control" placeholder="Dirección de la distribuidora"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="" *ngIf="testing!==undefined">
+                                <label for="event-address" style="color:#0A60C2;">Fuente de datos (URL del API)
+                                  <button class="btn btn-warning btn-xs" id="closeButton" [hidden]="!tested || (catSize==0 || artSize ==0 || cliSize==0) " (click)="reset()" >reset!</button>
+                                </label>
+                                <div class=" row"   [hidden]="tested && (catSize>0 || artSize>0 || cliSize>0) ">
+                                  <div class="form-group col-md-6">
+                                    <label for="url-input">URL</label>
+                                    <input class="form-control" type="text" [(ngModel)]="data2.url" name="url" required [ngModelOptions]="{standalone: true}">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label for="port-input">Puerto</label>
+                                    <input class="form-control" type="number" min="0" max="9999" [(ngModel)]="data2.port" name="port" required [ngModelOptions]="{standalone: true}">
+                                  </div>
+                                  <div class="col-md-2"  [hidden]="tested && (catSize>0 || artSize>0 || cliSize>0) "> 
+                                    <div class="popup-box-actions medium void">
+                                    <button class="btn btn-dark btn-xs" id="closeButton"  (click)="test()">TEST!</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div [hidden]="(!testing[0] || !testing[1] || !testing[2] ) ">
+                                  testing connection ...
+                                </div>
+                                <div [hidden]="!tested  " >
+                                  <span >{{completeURL}}webapi/articulos/getlista </span>
+                                    <span [hidden]="this.artSize<1 "  style="color: green;"> 
+                                      ✓ ({{this.artSize}} artículos)
+                                    </span>
+                                    <span [hidden]="this.artSize!==0 || !tested && testing[0]" style="color: red; " >X No connection</span>
+                                </div>
+                                <div [hidden]="!tested">
+                                  <span >{{completeURL}}webapi/familia/all  </span>
+                                  <span [hidden]="this.catSize<1"  style="color: green;">
+                                    ✓ ({{this.catSize}} categorías)
+                                  </span>
+                                  <span  [hidden]="this.catSize!==0 || !tested && testing[1]" style="color: red; " >X No connection</span>
+                                </div>
+                                <div [hidden]="!tested">
+                                  <span >{{completeURL}}webapi/clientes/getall  </span>
+                                  <span [hidden]="this.cliSize <1"  style="color: green;">
+                                    ✓ ({{this.cliSize}} clientes)
+                                  </span>
+                                  <span [hidden]="this.cliSize !==0 || !tested && testing[2]" style="color: red; " >X No connection</span>
+                                </div>
+                              </div>
+                              <div class="col-md-2"  [hidden]="!tested || (catSize==0 || artSize ==0 || cliSize==0) "> 
+                                <div class="popup-box-actions medium void" style="padding-top: 20px;">
+                                <button class="btn btn-primary btn-xs" id="closeButton"  (click)="next(1)">Siguiente!</button>
+                                </div>
+                              </div>
+                              <div class="">
+                                <div class="">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md86" [hidden]="steep!==1">
+                              <div class=""  [hidden]="!tested || (catSize==0 || artSize ==0 || cliSize==0) "> 
+                                
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="event-email" style="color: #0A60C2;">Email</label>
+                                    <input class="form-control" placeholder="Email" type="email" [(ngModel)]="data.email" name="email" required [ngModelOptions]="{standalone: true}">
+                                  </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <label for="event-password" style="color: #0A60C2;">Contraseña</label>
+                                    <div class="input-group">
+                                      <input #passwordInput [ngModelOptions]="{standalone: true}" [(ngModel)]="data.password" class="form-control" placeholder="Contraseña" >
+                                      <div class="input-group-append">
+                                        <button class="btn btn-light btn-xs" type="button" (click)="copyToClipboard()">
+                                          <img src="assets/gymove/images/copy.png" height="24px" alt="">
+
+                                        </button>
+                                        <button class="btn btn-light btn-xs" type="button" (click)="regeneratePassword()">Regenerar</button>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                  <div class="popup-box-actions medium void row" style="padding-top: 20px; justify-content: space-between;">
+                                    <div class="col-md-6 col-lg-6">
+                                        <button class="btn btn-primary btn-xs" (click)="prev(0)">Atrás!</button>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 text-right"> <!-- Utilizamos la clase "text-right" para alinear a la derecha -->
+                                        <button class="btn btn-primary btn-xs" (click)="registrarUsuario()">Siguiente!</button>
+                                    </div>
+                                  </div>
+                                </div>
+                             
+                              </div>
+                            </div> 
+                          </div>  
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

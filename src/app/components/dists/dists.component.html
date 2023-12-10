@@ -1,0 +1,53 @@
+<ngx-ui-loader 
+[pbColor]="'#0A60C2'"  
+[bgsColor]="'#0A60C2'"
+[fgsColor]="'#0A60C2'"
+[text]="'Cargando...'"
+[fgsSize]="15"
+[fgsType]= "'cube-grid'"
+[textColor]="'#0A60C2'"
+[overlayColor]="' rgba(255,255,255,0.8)'">
+</ngx-ui-loader>
+ <div class="content-body">
+            <div class="container-fluid">
+                <div class="page-titles">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Distribuidores</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">+</a></li>
+                        <a routerLink="../distnew" class="btn btn-primary light btn-md ml-auto"><i class="fa fa-plus scale5 mr-3"></i>Agregar Distribuidor</a>
+                         
+                    </ol>
+                    
+                </div>
+                
+                <div class="row">
+                    {{message}}
+                    <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6" *ngFor="let dist of yeoman.all;let i = index"  (click)="setPreview(i)" style="cursor: pointer;" [hidden]="dist.images[0]===undefined" > -->
+                 
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6" *ngFor="let dist of yeoman.all;let i = index"   style="cursor: pointer;" [hidden]="dist.images[0]===undefined" >
+                        <div class="card">
+                         
+                            <div class="card-body">
+                                <div class="media mb-3">
+                                    <a >
+                                        <img class="rounded mr-3"  width="86" src="assets/gymove/images/product/1.jpg" alt="" *ngIf="dist.images[0]===undefined">
+                                        <img class="rounded mr-3"  width="86" src="{{dist.images[0]}}" alt="" *ngIf="dist.images[0]!==undefined">
+                                  
+                                    
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="fs-16 font-w500" ><a  class="text-black">{{dist.name}}</a></h6>
+                                    
+                                    </div>
+                                </div>
+                                <ul class="m-md-auto mt-2 pr-4">
+                                      <li class="mb-2 text-nowrap"><i class="las la-prescription-bottle scale5 mr-3"></i><span class="text-nowrap fs-14 text-primary font-w500">{{dist.url}}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                       
+                    </div>
+           
+                </div>
+            </div>
+        </div>

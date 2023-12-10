@@ -1,0 +1,174 @@
+<div class="content-body" style="margin-top: 20px;">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Órdenes</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Listado</a></li>
+                <a routerLink="../addOrder" class="btn btn-primary  btn-md ml-auto"  [hidden]="yeoman.type == 'admin' || yeoman.type == 'dist'" ><i class="fa fa-plus scale5 mr-3"></i>Nueva orden de compra</a>                
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card plan-list">
+                    <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0">
+                        <div class="mr-auto pr-3 mb-3">
+                            <!-- <h4 class="text-black fs-20">Plan List</h4>
+                            <p class="fs-13 mb-0 text-black">Lorem ipsum dolor sit amet, consectetur</p> -->
+                        </div>
+                        <div class="card-action card-tabs mr-4 mt-3 mt-sm-0 mb-3">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#Unifinshed" role="tab" aria-selected="false">Nuevas ({{yeoman.ordersNew.length}})</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " data-toggle="tab" href="#Processing" role="tab" aria-selected="true">En proceso ({{yeoman.ordersProcessing.length}})</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#Finished" role="tab">Terminadas ({{yeoman.ordersFinished.length}})</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body tab-content pt-2">
+                        
+                        <div class="tab-pane active show fade" id="Unifinshed">
+                            <table class="table table-sm mb-0 table-responsive-lg text-black shadow-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle">Orden</th>
+                                        <th class="align-middle pr-7">Fecha</th>
+                                        <th class="align-middle minw200">Cliente</th>
+                                        <th class="align-middle text-right">Status</th>
+                                        <th class="align-middle text-right">Monto</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders">
+                                    <tr class="btn-reveal-trigger" style="cursor: pointer;" *ngFor="let order of yeoman.ordersNew; let i = index">
+                                        
+                                        <td class="py-2" (click)="setPreviewNew(i)">
+                                            <a >
+                                                <strong style="color: #0a60c1;"> {{order.ref}}</strong></a> </td>
+                                                <td (click)="setPreviewNew(i)" class="py-2" data-toggle="popover" data-placement="left" data-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor." title="{{order.createdAt |  date: 'dd MMMM yyyy'  }} a las {{order.createdAt |  date: ' h:mm a'  }}"> <i data-toggle="popover" data-placement="left" data-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor." title="{{order.createdAt |  date: 'dd MMMM yyyy'  }} a las {{order.createdAt |  date: ' h:mm a'  }}" class="las la-clock scale5 me-2"> </i> {{ formatDateRelative(order.createdAt) }}  </td>
+                                                <!-- <td class="py-2">{{ (order.createdAt) }}</td> -->
+                                                <td  (click)="setPreviewNew(i)" class="py-2"> <strong>{{order.clientEmail}} </strong><br /><a href="mailto:ricky@example.com"></a></td>
+                                        <td  class="py-2 text-right" [hidden]="yeoman.type != 'dist'">
+                                            <span (click)="changeStatusRQ(i)"  class="badge light badge-success" style="margin: 25px;" [hidden]="visibles">{{order.status}}
+                                            </span>                                              
+                                            <button type="button"  style="margin-top: 25px; margin-bottom: 25px; margin-right: 5px;" class="btn btn-primary btn-xxs" (click)="setProcesandoFromNew(i)" [hidden]="!visibles">En proceso</button>
+                                            <button type="button" class="btn btn-outline-primary btn-xxs" (click)="setTerminadaFromNew(i)" style="margin-top: 25px; margin-bottom: 25px; margin-right: 5px;" [hidden]="!visibles">Terminar</button>
+                                        </td>
+                                        <td  class="py-2 text-right" [hidden]="yeoman.type != 'client'" >
+                                            <span   class="badge light badge-success" style="margin: 25px;" [hidden]="visibles">{{order.status}}
+
+                                            </span>
+                                              
+                                         
+                                        </td>    
+                                        <td (click)="setPreviewNew(i)" class="py-2 text-right">{{order.total | number:'1.2-2'}}
+                                        </td>
+                                       
+                                    </tr>
+                                   
+                                  
+                                </tbody>
+                            </table>
+                           
+                            
+                            
+                        </div>
+                        <div class="tab-pane fade" id="Processing" >
+                            <table class="table table-sm mb-0 table-responsive-lg text-black shadow-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle">Orden</th>
+                                        <th class="align-middle pr-7">Fecha</th>
+                                        <th class="align-middle minw200">Cliente</th>
+                                        <th class="align-middle text-right">Status</th>
+                                        <th class="align-middle text-right">Monto</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders">
+                                    <tr class="btn-reveal-trigger" style="cursor: pointer;" *ngFor="let order of yeoman.ordersProcessing; let i = index">
+                                        
+                                        <td class="py-2" (click)="setPreviewPro(i)">
+                                            <a >
+                                                <strong style="color: #0a60c1;"> {{order.ref}}</strong></a> </td>
+
+
+                                                <td  (click)="setPreviewPro(i)" class="py-2" data-toggle="popover" data-placement="left" data-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor." title="{{order.createdAt |  date: 'dd MMMM yyyy'  }} a las {{order.createdAt |  date: ' h:mm a'  }}"> <i data-toggle="popover" data-placement="left" data-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor." title="{{order.createdAt |  date: 'dd MMMM yyyy'  }} a las {{order.createdAt |  date: ' h:mm a'  }}" class="las la-clock scale5 me-2" (click)="setPreviewPro(i)"> </i> {{ formatDateRelative(order.createdAt) }}  </td>
+                                                <!-- <td class="py-2">{{ (order.createdAt) }}</td> -->
+                                                <td  (click)="setPreviewPro(i)" class="py-2"> <strong>{{order.clientEmail}}</strong><br /><a href="mailto:ricky@example.com"></a></td>
+                                       
+                                       
+                                        <td  class="py-2 text-right" [hidden]="yeoman.type !== 'dist'">
+                                            <span (click)="changeStatusRQ(i)"  class="badge light badge-primary" style="margin: 25px;" [hidden]="visibles">{{order.status}}
+                                               
+                                            </span>  
+                                              <!-- <button type="button"  style="margin-top: 25px; margin-bottom: 25px; margin-right: 5px;" class="btn btn-primary btn-xxs" (click)="setProcesando(i)" [hidden]="!visibles">En proceso</button> -->
+                                              <button type="button" class="btn btn-primary btn-xxs" (click)="setTerminadaFromProcessing(i)" style="margin-top: 25px; margin-bottom: 25px; margin-right: 5px;" [hidden]="!visibles">Terminar</button>
+                                      
+                                           </td>
+                                            <td  class="py-2 text-right" [hidden]="yeoman.type !== 'client'">
+                                                <span   class="badge light badge-primary" style="margin: 25px;" [hidden]="visibles">{{order.status}}
+                                               
+                                                </span>
+                                            </td>
+                                          
+                                        <td (click)="setPreviewPro(i)" class="py-2 text-right">{{order.total | number:'1.2-2'}}
+                                        </td>
+                                       
+                                    </tr>
+                                   
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                       
+                        <div class="tab-pane fade" id="Finished">
+                            <table class="table table-sm mb-0 table-responsive-lg text-black shadow-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle">Orden</th>
+                                        <th class="align-middle pr-7">Fecha</th>
+                                        <th class="align-middle minw200">Cliente</th>
+                                        <th class="align-middle text-right">Status</th>
+                                        <th class="align-middle text-right">Monto</th>
+                                        <th class="no-sort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders">
+                                    <tr class="btn-reveal-trigger" style="cursor: pointer;" *ngFor="let order of yeoman.ordersFinished; let i = index" >
+                                        
+                                        <td class="py-2" (click)="setPreviewFin(i)">
+                                            <a >
+                                                <strong style="color: #0a60c1;"> {{order.ref}}</strong></a> </td>
+                                                <td (click)="setPreviewFin(i)" class="py-2" data-toggle="popover" data-placement="left" data-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor." title="{{order.createdAt |  date: 'dd MMMM yyyy'  }} a las {{order.createdAt |  date: ' h:mm a'  }}"> <i data-toggle="popover" data-placement="left" data-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor." title="{{order.createdAt |  date: 'dd MMMM yyyy'  }} a las {{order.createdAt |  date: ' h:mm a'  }}" class="las la-clock scale5 me-2"> </i> {{ formatDateRelative(order.createdAt) }}  </td>
+                                                <!-- <td class="py-2">{{ (order.createdAt) }}</td> -->
+                                                <td (click)="setPreviewFin(i)" class="py-2"> <strong>{{order.clientEmail}}</strong><br /><a href="mailto:ricky@example.com"></a></td>
+                                       
+                                       
+                                        <td  class="py-2 text-right">
+                                            <span class="badge light badge-secondary" style="margin: 25px;" [hidden]="visibles">{{order.status}}
+                                              
+                                            </span>
+                                            <!-- <button type="button"  style="margin-top: 25px; margin-bottom: 25px; margin-right: 5px;" class="btn btn-primary btn-xxs" (click)="setProcesandoFrom(i)" [hidden]="!visibles">En proceso</button> -->
+                                            <!-- <button type="button" class="btn btn-outline-primary btn-xxs" (click)="setTerminada(i)" style="margin-top: 25px; margin-bottom: 25px; margin-right: 5px;" [hidden]="!visibles">Terminar</button> -->
+                                        </td>
+                                        <td (click)="setPreviewFin(i)" class="py-2 text-right">{{order.total | number:'1.2-2'}}
+                                        </td>
+                                       
+                                    </tr>
+                                   
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>

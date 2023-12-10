@@ -1,0 +1,53 @@
+
+<ngx-ui-loader [pbColor]="'#0A60C2'"  [bgsColor]="'#0A60C2'"[fgsColor]="'#0A60C2'"[text]="'Validando ingreso, por favor espere...'"
+[fgsSize]="15"[fgsType]= "'cube-grid'"[textColor]="'#0A60C2'"[overlayColor]="' rgba(255,255,255,0.8)'" 
+
+
+></ngx-ui-loader>  
+<div class="" [hidden]="virtualRouter.routerActive!=='login'">
+    <div class="col-4" *ngIf="global.deviceType==='Desktop'"></div>
+      <div [ngClass]="{'col-4': global.deviceType === 'Desktop', 'col-12': global.deviceType === 'Mobile'}">
+        <form class="auth-form" [formGroup]="ngFormLogin" (ngSubmit)="onLogin()">
+          <div class="custom-container">
+            <div class="form-group">
+              <label for="inputusername" class="form-label">Email id</label>
+              <div class="form-input">
+                <!-- <input type="email" class="form-control" id="inputusername" placeholder="Enter Your Email" /> -->
+                <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" required [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                                    
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].errors['required']">El email requerido
+                  </div>
+                </div>
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="inputpin" class="form-label">Pin</label>
+              <div class="form-input">
+                <!-- <input type="password" class="form-control" id="inputpin" placeholder="Enter Your pin" /> -->
+                <input type="password" class="form-control" id="password" placeholder="*******" formControlName="password" required [ngClass]="{ 'is-invalid': submitted && f['password'].errors}">
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                  <div *ngIf="f['password'].errors['required']">Contraseña requerida</div>
+                </div>
+            </div>
+            <div [hidden]="!isError">
+                <span style="color:red;">{{message}}</span> 
+              </div>
+            </div>
+            <div class="remember-option mt-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label class="form-check-label" for="flexCheckDefault">Remember me</label>
+              </div>
+            </div>   
+            
+            <!-- <button type="button" class="btn theme-btn">Button-1</button> -->
+            <button type="submit" class="btn theme-btn">Entrar</button>
+                                  
+            <!-- <a href="landing.html" class="btn theme-btn w-100">Entrar</a> -->
+                   </div>
+        </form>
+      </div>
+      <div class="col-8" *ngIf="global.deviceType==='Desktop'">
+      </div>
+    </div>

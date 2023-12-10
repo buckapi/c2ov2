@@ -1,0 +1,72 @@
+
+  <ngx-ui-loader [pbColor]="'#0A60C2'"  [bgsColor]="'#0A60C2'"[fgsColor]="'#0A60C2'"[text]="'Validando ingreso, por favor espere...'"
+  [fgsSize]="15"[fgsType]= "'cube-grid'"[textColor]="'#0A60C2'"[overlayColor]="' rgba(255,255,255,0.8)'" 
+  
+  
+  ></ngx-ui-loader>   
+<div class="authincation h-100 " style="margin-top: 90px;">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-md-6">
+                <div class="authincation-content" style="background-color: transparent !important;">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form">
+                                <div class="text-center mb-3">
+                                    <a href="https://www.click2order.app" target="_blank"><img src="assets/gymove/images/logo.png" alt=""></a>
+
+                                    <a href="index.html"><img src="assets/gymove/images/logo-text.png" alt=""></a>
+                                </div>
+                                <h4 class="text-center mb-4 text-white">Click 2 Order</h4>
+                                <form class="forms-sample" [formGroup]="ngFormLogin" (ngSubmit)="onLogin()">
+                                    <div class="mb-3">
+                                      <label for="email" class="form-label">Email</label>
+                                      <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" required [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                                    
+                                      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['email'].errors['required']">El email requerido
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="password" class="form-label">Contraseña</label>
+                                      <input type="password" class="form-control" id="password" placeholder="*******" formControlName="password" required [ngClass]="{ 'is-invalid': submitted && f['password'].errors}">
+                                      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['password'].errors['required']">Contraseña requerida
+                                      </div>
+                                    </div>
+                                    <div [hidden]="!isError">
+                                      <span style="color:red;">{{message}}</span> 
+                                    </div>
+                                    <div class="d-grid gap-2" style="text-align: -webkit-right;" >
+                                      <!-- <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" (click)="onLoggedin($event)">Entrar</button> -->
+                                      <button type="submit" class="btn btn-primary btn-xs" style="border-radius: 10px; margin-top: 20px;">Entrar</button>
+                                    </div>
+                                    <!-- <a routerLink="/auth/register" class="d-block mt-3 text-muted">Aun no forma parte de ZOFRICARS? solicite su registro <span class="text-info" style="font-weight: bolder; color:#f57a1f !important;">AQUI</span></a> -->
+                                  </div>
+                                  </form>
+                                <!-- <form action="index.html">
+                                    <div class="form-group">
+                                        <label class="mb-1 text-dark"><strong>Email</strong></label>
+                                        <input type="email" class="form-control" value="hello@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1 text-dark"><strong>Password</strong></label>
+                                        <input type="password" class="form-control" value="Password">
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <button type="submit" class="btn bg-white text-primary btn-block">Entrar</button>
+                                    </div>
+                                </form> -->
+                                <!-- <div class="new-account mt-3">
+                                    <p class="text-white">Don't have an account? <a class="text-white" href="page-register.html">Sign up</a></p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

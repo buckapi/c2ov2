@@ -1,0 +1,41 @@
+.container2 {
+    text-align: center;
+  }
+
+  .btn {
+    display: inline-block;
+    /* max-width: 5px !important;
+    height: 20px; */
+    /* background-color: #3498db; */
+    /* color: white; */
+    font-weight: bold;
+    font-size: 1rem !important;
+    /* line-height: 6px; */
+    cursor: pointer;
+    margin-left: 12px;
+    margin-right: 12px;
+    border-radius: 60%
+  }
+
+  .btn:hover {
+    background-color: #2980b9;
+  }
+    /* Cuando los precios son iguales */
+.precio-igual {
+  color: inherit; /* Usa el color por defecto del texto */
+}
+
+/* Cuando los precios son diferentes */
+.precio-diferente {
+  color: #06b89d; /* Cambia el color del texto a verde */
+  font-size: 1.2em; /* Cambia el tamaño de fuente, ajusta según lo necesites */
+}
+.text-green-mod {
+  color: #06b89d; /* Cambia el color del texto a verde */
+}
+
+/* Tachar el precio original */
+.precio-tachado {
+  text-decoration: line-through; /* Tacha el texto */
+  color: gray;
+}

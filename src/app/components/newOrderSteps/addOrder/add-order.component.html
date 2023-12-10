@@ -1,0 +1,222 @@
+<ngx-ui-loader [pbColor]="'#0A60C2'" [bgsColor]="'#0A60C2'" [fgsColor]="'#0A60C2'"
+    [text]="'Consultando información, por favor espere...'" [fgsSize]="15" [fgsType]="'cube-grid'"
+    [textColor]="'#0A60C2'" [overlayColor]="' rgba(255,255,255,0.8)'"></ngx-ui-loader>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="">
+            <div class="my-post-content pt-3">
+                <div class="row">
+                    <div class="input-group search-area d-xl-inline-flex d-none col-md-2" bis_skin_checked="1">
+                    </div>
+                </div>
+                <swiper [config]="config">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" *ngFor="let categoria of categorias; let i =index;">
+                            <a href="javascript:void()"
+                                class="badge badge-rounded badge-outline-dark">{{categoria.fanombre}}</a>
+                        </div>
+                    </div>
+                </swiper>
+                <!-- VISTA LISTA -->
+                <table class="table table-bordered" [hidden]="yeoman.viewSelected ">|
+                    <thead>
+                        <tr>
+                            <th>Descripcion</th>
+                            <th>Unidad</th>
+                            <th>IVA</th>
+                            <th>Precio</th>
+
+                            <th>Dcto.</th>
+                            <th></th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customers" *ngIf="yeoman.catalogo[0]!==undefined">
+                        <tr class="btn-reveal-trigger cardV" (click)="ver(i,articulo)"
+                            *ngFor="let articulo of yeoman.catalogo | paginate: { itemsPerPage: itemsPP, currentPage: p };let i =index"
+                            [hidden]="(yeoman.filtered && articulo.arfamilia !== yeoman.categorySelected) || ((search.articuloFiltered && !articulo.arnombre.toLowerCase().includes(search.articulo.toLowerCase()))) || (search.check && !articulo.descuentoPromocional )"
+                            tyle="cursor: pointer;"
+                            [ngStyle]="{'background-color': ( mostrarTabla && i === indiceMostrado) ? '#f1f1f1' : 'transparent'}">
+                            <td class="py-3 image-td">
+                                <a>
+                                    <div class="media d-flex align-items-center">
+                                        <div class="avatar avatar-xl mr-2">
+                                            <div class="image-container">
+                                                <img [hidden]=" articulo.arimage!=null" class="rounded img-fluid"
+                                                    src="assets/gymove/images/not.jpg" width="30" alt="" />
+                                                <img *ngIf="articulo.arimagen!=null" class="rouded img-fluid"
+                                                    src="{{articulo.arimagen}}" width="30" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="mb-0 fs--1" style="margin-left: 20px;">{{articulo.arnombre}}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </td>
+                            <td>
+                                {{articulo.arunidad}}
+                            </td>
+                            <td>{{articulo.ariva}}</td>
+                            <td>
+                                <span
+                                    [hidden]="articulo.precioConDescuento!==undefined && articulo.precioConDescuento !== articulo.arprecio">{{articulo.arprecio
+                                    | number:'1.2-2'}}</span>
+                                <span
+                                    *ngIf="articulo.precioConDescuento !== undefined && articulo.precioConDescuento !== articulo.arprecio"
+                                    [ngClass]="{'precio-tachado': true}">
+                                    {{articulo.arprecio | number:'1.2-2'}}
+                                </span>
+                                <span
+                                    *ngIf="articulo.precioConDescuento !== undefined && articulo.precioConDescuento !== articulo.arprecio"
+                                    [ngClass]="{'precio-diferente': true}">
+                                    {{articulo.precioConDescuento | number:'1.2-2'}}
+                                </span>
+                            </td>
+                            <td>
+                                <span *ngIf="articulo.ardescuento > 0" style="color: #06b89d;">Dcto: {{
+                                    articulo.ardescuento }} %</span>
+                            </td>
+                            <td>
+                                <img src="assets/gymove/images/discount.png"
+                                    [hidden]="articulo.descuentoPromocional === undefined" width="35">
+                                <table class="table  table-responsive-sm"
+                                    [hidden]="articulo.descuentoPromocional === undefined || !mostrarTabla || i !=indiceMostrado"
+                                    *ngIf="articulo.descuentoPromocional!==undefined && articulo.descuentoPromocional !==undefined">
+                                    <thead>
+                                        <tr>
+                                            <th>Cantidad</th>
+                                            <th>% dcto.</th>
+                                        </tr>
+                                    </thead>
+                                    <ng-container *ngFor="let row of articulo.descuentoPromocional; let i = index">
+                                        <tr [hidden]="articulo.descuentoPromocional[i] === 0">
+                                            <td [hidden]="i==2 || articulo.descuentoPromocional[i] === 0 || articulo.descuentoPromocional[i+1] === 0"
+                                                [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                de {{ row }}  a {{ articulo.descuentoPromocional[i+1] }} und.
+                                            </td>
+                                            <td [hidden]="i==2 || articulo.descuentoPromocional[i] === 0 || articulo.descuentoPromocional[i+1] !== 0"
+                                                [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                de {{ row }} en adelante
+                                            </td>
+                                            <td [hidden]="i<2 || articulo.descuentoPromocional[i] === 0"
+                                                [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                de {{ row }} und. en adelante {{ articulo.descuentoPromocional[i+1]
+                                                }}
+                                            </td>
+                                            <td [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                {{ articulo.descuentoPorcentaje[i] }} %
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </table>
+                            </td>
+                            <td>
+                                <form (ngSubmit)="agregarAOrden(articulo,i)">
+                                    <input type="number" [(ngModel)]="articulo.cantidad" name="cantidad" min="0"
+                                        step="1" required class="form-control col-md-4"
+                                        (input)="onInputChange(articulo,i)"
+                                        [ngStyle]="{'background-color': isCantidadUndefinedInCatalogo(i) ? '#b1dbff56' : '#d1ffd1'}"
+                                        (keyup.enter)="focusNextInput(articulo, i)" #cantidadInput="ngModel"
+                                        style="font-size: 1rem; color: #0a60c2;">
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- VISTA GRID -->
+                <div class="row" [hidden]="!yeoman.viewSelected">
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6" (click)="select(articulo)"
+
+                        [hidden]="(yeoman.filtered && articulo.arfamilia !== yeoman.categorySelected) || ((search.articuloFiltered && !articulo.arnombre.toLowerCase().includes(search.articulo.toLowerCase()))) || (search.check && !articulo.descuentoPromocional )"
+                        
+                        *ngFor="let articulo  of yeoman.catalogo ;let i =index" style="cursor: pointer;">
+                        <div class="card cardV" (click)="select(articulo)">
+                            <div class="card-body">
+                                <div class="media mb-3">
+                                    <a>
+                                        <img class="rounded mr-3" width="86" src="assets/gymove/images/not.jpg" alt=""
+                                            [hidden]=" articulo.arimagen!=null">
+                                        <img *ngIf="articulo.arimagen!=null" class="rounded mr-3" width="86"
+                                            src="{{articulo.arimagen}}" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h6 class="fs-16 font-w500">
+                                            <a class="text-black">{{ articulo.arnombre }}</a>
+                                        </h6>
+                                        <div class="text-ligth">
+                                            Precio:
+                                            <span
+                                                [hidden]="articulo.precioConDescuento!==undefined && articulo.precioConDescuento !== articulo.arprecio">
+                                                {{articulo.arprecio | number:'1.2-2'}}</span>
+                                            <span
+                                                *ngIf="articulo.precioConDescuento !== undefined && articulo.precioConDescuento !== articulo.arprecio"
+                                                [ngClass]="{'precio-tachado': true}">
+                                                {{articulo.arprecio | number:'1.2-2'}}
+                                            </span>
+                                            <span
+                                                *ngIf="articulo.precioConDescuento !== undefined && articulo.precioConDescuento !== articulo.arprecio"
+                                                [ngClass]="{'precio-diferente': true}">
+                                                {{articulo.precioConDescuento | number:'1.2-2'}}
+                                            </span>
+                                            <img src="assets/gymove/images/discount.png"
+                                                [hidden]="articulo.descuentoPromocional === undefined" width="25">
+                                            <br />
+                                            <span>Iva: {{ articulo.ariva }} %</span>
+                                            <br /><span *ngIf="articulo.ardescuento > 0" style="color: #06b89d;">Dcto:
+                                                {{ articulo.ardescuento }} %</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media mb-3">
+                                    <form (ngSubmit)="agregarAOrden(articulo,i)">
+                                        <span style="padding-left: 35%;">Cantidad:</span>
+                                        <input type="number" [(ngModel)]="articulo.cantidad" name="cantidad" min="0"
+                                            step="1" required class="form-control col-md-6"
+                                            (input)="onInputChange(articulo,i)"
+                                            [ngStyle]="{'background-color': isCantidadUndefinedInCatalogo(i) ? '#b1dbff56' : '#d1ffd1'}"
+                                            (keyup.enter)="focusNextInput(articulo, i)" #cantidadInput="ngModel"
+                                            style="font-size: 1rem; color: #0a60c2; margin-right:25%;margin-left:25%;">
+                                    </form>
+                                </div>
+                                <div class="media mb-3">
+                                    <table class="table  table-striped-sm"
+                                        [hidden]="articulo.descuentoPromocional === undefined "
+                                        *ngIf="articulo.descuentoPromocional!==undefined && articulo.descuentoPorcentaje !==undefined">
+                                        <thead>
+                                            <tr>
+                                                <th>Cantidad</th>
+                                                <th>% dcto.</th>
+                                            </tr>
+                                        </thead>
+                                        <ng-container *ngFor="let row of articulo.descuentoPromocional; let i = index">
+                                            <tr [hidden]="articulo.descuentoPromocional[i] === 0">
+                                                <td [hidden]="i==2 || articulo.descuentoPromocional[i] === 0 || articulo.descuentoPromocional[i+1] === 0"
+                                                    [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                    de {{ row }} a {{ articulo.descuentoPromocional[i+1] }} und.
+                                                </td>
+                                                <td [hidden]="i==2 || articulo.descuentoPromocional[i] === 0 || articulo.descuentoPromocional[i+1] !== 0"
+                                                    [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                    mas de {{ row }} und.
+                                                </td>
+                                                <td [hidden]="i<2 || articulo.descuentoPromocional[i] === 0"
+                                                    [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                    mas de  {{ row }} und. {{
+                                                    articulo.descuentoPromocional[i+1] }}
+                                                </td>
+                                                <td [ngClass]="{ 'text-green-mod ': i === articulo.descuentoIndex }">
+                                                    {{ articulo.descuentoPorcentaje[i] }} %
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

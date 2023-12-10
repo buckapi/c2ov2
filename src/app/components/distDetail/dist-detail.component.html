@@ -1,0 +1,507 @@
+<div class="content-body" [hidden]="yeoman.previewType!=='product'">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="../c2oAll">Inventario</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Detalle</a></li>
+                <button [swal]="
+                {title: '<strong>Borrar producto <u></u></strong>', icon: 'error',
+                html: 'Confirma que desea eliminar este producto ?',
+                showCloseButton: true,
+                showCancelButton: true,
+                cancelButtonColor: '#101554',
+                confirmButtonColor: '#ff3366',
+                focusConfirm: true,
+                confirmButtonText:' Borrar',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText: ' Cancelar',
+                cancelButtonAriaLabel: 'Thumbs down'
+                }"
+                (confirm)="delete()"
+                (dismiss)="cancelDelete()"
+                 class="btn btn-danger light btn-md ml-auto " style="margin-right:10%;">
+                <i class="feather icon-trash"></i>Borrar
+                </button>
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                               
+                                    <div role="tabpanel" class="tab-pane fade show " [class.active]="i == 0" id="{{i}}" *ngFor="let image of yeoman.preview.images;let i =index;">
+                                        <img class="img-fluid" src="assets/gymove/images/product/1.jpg" alt="" *ngIf="yeoman.preview.images[0]===undefined">
+                                        <img class="img-fluid" src="{{image}}" alt="" *ngIf="image!==undefined">
+                                    </div>
+                                </div>
+                                <div class="tab-slide-content new-arrival-product mb-4 mb-xl-0">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav slide-item-list mt-3" role="tablist">
+                                        <li role="presentation" class="show" *ngFor="let image of yeoman.preview.images;let i =index;">
+                                            <a href="#{{i}}" role="tab" data-toggle="tab">
+                                                <img class="img-fluid" src="{{image}}" alt="" width="50">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Tab slider End-->
+                            <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
+                                <div class="product-detail-content">
+                                    <!--Product details-->
+                                    <div class="new-arrival-content pr">
+                                        <h4>{{yeoman.preview.name}}</h4>
+                                        <div class="comment-review star-rating">
+                                            <ul>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star-half-empty"></i></li>
+                                                <li><i class="fa fa-star-half-empty"></i></li>
+                                            </ul>
+                                            <span class="review-text">(34 reviews) / </span><a class="product-review" href="ecom-product-detail.html"  data-toggle="modal" data-target="#reviewModal">Write a review?</a>
+                                        </div>
+                                        <div class="d-table mb-2">
+                                            <p class="price float-left d-block">$ {{yeoman.preview.price}}</p>
+                                        </div>
+                                        <p>Availability: <span class="item"> In stock <i
+                                                    class="fa fa-shopping-basket"></i></span>
+                                        </p>
+                                        <p>Product code: <span class="item">0405689</span> </p>
+                                        <p>Brand: <span class="item">Lee</span></p>
+                                        <p>Product tags:&nbsp;&nbsp;
+                                            <span class="badge badge-success light">bags</span>
+                                            <span class="badge badge-success light">clothes</span>
+                                            <span class="badge badge-success light">shoes</span>
+                                            <span class="badge badge-success light">dresses</span>
+                                        </p>
+                                        <p class="text-content">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+                                            If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
+                                        <div class="filtaring-area my-3">
+                                            <div class="size-filter">
+                                                <h4 class="m-b-15">Select size</h4>
+                                                
+                                                <div class="btn-group" data-toggle="buttons">
+                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option5"> XS</label>
+                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option1" checked>SM</label>
+                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option2"> MD</label>
+                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option3"> LG</label>
+                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option4"> XL</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Quantity start-->
+                                        <div class="col-2 px-0">
+                                            <input type="number" name="num" class="form-control input-btn input-number" value="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- review -->
+            <div class="modal fade" id="reviewModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Review</h5>
+                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="text-center mb-4">
+                                    <img class="img-fluid rounded" width="78" src="assets/gymove/images/avatar/1.jpg" alt="DexignZone">
+                                </div>
+                                <div class="form-group">
+                                    <div class="rating-widget mb-4 text-center">
+                                        <!-- Rating Stars Box -->
+                                        <div class="rating-stars">
+                                            <ul id="stars">
+                                                <li class="star" title="Poor" data-value="1">
+                                                    <i class="fa fa-star fa-fw"></i>
+                                                </li>
+                                                <li class="star" title="Fair" data-value="2">
+                                                    <i class="fa fa-star fa-fw"></i>
+                                                </li>
+                                                <li class="star" title="Good" data-value="3">
+                                                    <i class="fa fa-star fa-fw"></i>
+                                                </li>
+                                                <li class="star" title="Excellent" data-value="4">
+                                                    <i class="fa fa-star fa-fw"></i>
+                                                </li>
+                                                <li class="star" title="WOW!!!" data-value="5">
+                                                    <i class="fa fa-star fa-fw"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="Comment" rows="5"></textarea>
+                                </div>
+                                <button class="btn btn-success btn-block">RATE</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body" [hidden]="yeoman.previewType!=='dist'">
+    <div class="container-fluid">
+        <div class="page-titles" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="../dists">Distribuidores</a></li>
+                <li class="breadcrumb-item active"><a>Detalle de distribuidor</a></li>
+            </ol>
+        </div>
+        <div class="row">
+            <div [ngClass]="{'col-xl-9': artSelected, 'col-xl-12': !artSelected}">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="profile-tab">
+                            <div class="custom-tab-1">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link active show" (click)="changeViewOptCli()">Clientes ({{ totalClientes[yeoman.preview.id]}})</a>
+                                    </li>
+                                    <li class="nav-item"><a href="#my-articulos" data-toggle="tab" class="nav-link" (click)="changeViewOptArt()"> Articulos ({{ totalArticulos[yeoman.preview.id]}})</a>
+                                    </li>
+                                    <li class="nav-item"><a href="#profile-settings" data-toggle="tab" class="nav-link">Ajustes de cuenta</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="about-me" class="tab-pane fade active show ">
+                                        <div class="my-post-content pt-3">
+                                            <!-- <app-clients></app-clients> -->
+                                            <div class="row">     
+                                             <div class="input-group search-area d-xl-inline-flex d-none col-md-2" bis_skin_checked="1">
+                                                 <div class="input-group-append" bis_skin_checked="1">
+                                                     <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+                                                 </div>
+                                                 <input type="text" class="form-control" placeholder="Buscar...">
+                                             </div>
+                                             <pagination-controls previousLabel="Atrás" class="my-pagination col-md-6" nextLabel="Siguiente" (pageChange)="p2 = $event" ></pagination-controls>
+                                             <span class="col-md-2">
+                                                 mostrando:
+                                             </span>
+                                             <span class="">
+                                                 <select [(ngModel)]="itemsPP2" (change)="changeItemsPerPage(itemsPP2)"  class="custom-select">
+                                                 <option>{{itemsPP2}}</option><option *ngFor="let option of options2" [value]="option" [selected]="option === itemsPP2">{{ option }}</option>
+                                                 </select>
+                                             </span>
+                                             <span>por pagina</span>
+                                             <a routerLink="distnew" class="plus-icon2 text-white bg-primary ml-auto" style="border-radius: 35%;" [hidden]="viewSelected" (click)="changeView()">
+                                             <i class="las la-list scale-2"></i>
+                                             </a>
+                                             <a routerLink="distnew" class="plus-icon2 text-white bg-dark ml-auto" style="border-radius: 35%;" [hidden]="!viewSelected" (click)="changeView()">
+                                                 <i class="las la-list scale-2"></i>
+                                             </a>
+                                         </div>
+                                         <table class="table table-striped table-responsive-sm" [hidden]="viewSelected">
+                                             <thead>
+                                                 <tr>
+                                                     <th>Clientes</th>
+                                                 </tr>
+                                             </thead>
+                                             <tbody id="customers" *ngIf="clientes[0]!==undefined">
+                                                 <tr class="btn-reveal-trigger" *ngFor="let cliente  of yeoman.clientes| paginate: { itemsPerPage: itemsPP2, currentPage: p2 }">
+                                                 
+                                                     <td class="py-3">
+                                                         <a>
+                                                             <div class="media d-flex align-items-center">
+                                                                 <div class="avatar avatar-xl mr-2">
+                                                                     <div class=""><img class="rounded-circle img-fluid"
+                                                                             src="assets/gymove/images/not.jpg" width="30" alt="" />
+                                                                     </div>
+                                                                 </div>
+                                                                 <div class="media-body">
+                                                                     <h5 class="mb-0 fs--1" (click)="this.developerModeOn()" style="cursor: pointer;">{{cliente.clnombre}}</h5>
+                                                                     
+                                                              
+                                                                 </div>
+                                                                 
+                                                             </div>
+                                                         </a>
+                                                     </td> 
+                                                     <td>
+                                                         <span class="badge badge-primary" data-toggle="modal" data-target="#aAddDietMenus"  style="cursor: pointer;" (click)="selectCli(cliente)" [hidden]="cliente.status==='active'" >  Activar acceso</span>
+                                                         <span class="badge badge-success"  [hidden]="cliente.status==='unactive' || cliente.status===undefined" disabled="disabled">Cuenta  Activa</span>
+                                                      
+                                                         <!-- <a href="javascript:void(0);" data-toggle="modal" data-target="#aAddDietMenus" class="plus-icon text-white rounded bg-primary btn-xs"><i class="las la-check scale-2"> </i> </a></td> -->
+                                                     <td class="py-2">
+                                                         <!-- <a  href="mailto:ricky@example.com">{{cliente.existencia}}</a> -->
+                                                     </td>
+                                                 
+                                                 </tr>
+                                             
+                                             </tbody>
+                                         </table>
+                                         <div class="row" [hidden]="!viewSelected">
+                                             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6" *ngFor="let cliente  of clientes| paginate: { itemsPerPage: itemsPP2, currentPage: p2 }"   style="cursor: pointer;">
+                                                 <div class="card">
+                                                     <div class="card-body">
+                                                         <div class="media mb-3">
+                                                             <a >
+                                                                 <img class="rounded mr-3"  width="86" src="assets/gymove/images/not.jpg" alt="" *ngIf="cliente.images===undefined">
+                                                                 <!-- <img class="rounded mr-3"  width="86" src="{{dist.images[0]}}" alt="" *ngIf="dist.images[0]!==undefined"> -->
+                                                             </a>
+                                                             <div class="media-body">
+                                                                 <h6 class="fs-16 font-w500"><a  class="text-black">{{cliente.clnombre}}</a></h6>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         </div>
+                                    </div>
+                                    <div id="my-articulos" class="tab-pane fade">
+                                        
+                                        <div class="my-post-content pt-3">
+                                           
+                                            <div class="row">     
+                                                <div class="input-group search-area d-xl-inline-flex d-none col-md-2" bis_skin_checked="1">
+                                                    <div class="input-group-append" bis_skin_checked="1">
+                                                        <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Buscar...">
+                                                </div>
+                                                <pagination-controls previousLabel="Atrás" class="my-pagination col-md-6" nextLabel="Siguiente" (pageChange)="p = $event" ></pagination-controls>
+                                                <span class="col-md-2">
+                                                    mostrando:
+                                                </span>
+                                                <span class="">
+                                                      <select [(ngModel)]="itemsPP" (change)="changeItemsPerPage(itemsPP)"  class="custom-select">
+                                                        <option>{{itemsPP}}</option><option *ngFor="let option of options" [value]="option" [selected]="option === itemsPP">{{ option }}</option>
+                                                      </select>
+                                                      
+                                                  </span>
+                                                  <span>por pagina</span>
+                                                
+                                                  <a routerLink="distnew" class="plus-icon2 text-white bg-primary ml-auto" style="border-radius: 35%;" [hidden]="viewSelected" (click)="changeView()">
+                                                    <i class="las la-list scale-2"></i>
+                                                </a>
+                                                <a routerLink="distnew" class="plus-icon2 text-white bg-dark ml-auto" style="border-radius: 35%;" [hidden]="!viewSelected" (click)="changeView()">
+                                                    <i class="las la-list scale-2"></i>
+                                                </a>
+                                            </div>
+                                            <swiper [config]="config" >
+                                                <div class="swiper-wrapper">
+                                                  <div class="swiper-slide" *ngFor="let categoria of categorias; let i =index;">
+                                                    <a href="javascript:void()" class="badge badge-rounded badge-outline-dark">{{categoria.fanombre}}</a>
+                                            
+                                                  </div>
+                                                </div>
+                                                </swiper>
+                                           
+
+
+                                            <table class="table table-striped table-responsive-sm" [hidden]="viewSelected">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Descripcion</th>
+                                                                                                           </tr>
+                                                </thead>
+                                                <tbody id="customers" *ngIf="articulos[0]!==undefined">
+                                                    <tr class="btn-reveal-trigger" *ngFor="let articulo  of articulos| paginate: { itemsPerPage: itemsPP, currentPage: p }"  (click)="select(articulo)" style="cursor: pointer;" >
+                                                    
+                                                        <td class="py-3">
+                                                            <a>
+                                                                <div class="media d-flex align-items-center">
+                                                                    <div class="avatar avatar-xl mr-2">
+                                                                        <div class=""><img class="rounded-circle img-fluid"
+                                                                                src="assets/gymove/images/not.jpg" width="30" alt="" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="media-body">
+                                                                        <h5 class="mb-0 fs--1">{{articulo.arnombre}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </a>
+                                                        </td>
+                                                        <td class="py-2" >
+                                                            <!-- <a  href="mailto:ricky@example.com">{{articulo.existencia}}</a> -->
+                                                        </td>
+                                                    
+                                                    </tr>
+                                                
+                                                </tbody>
+                                            </table>
+                                            <div class="row" [hidden]="!viewSelected">
+                                               
+                                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6" *ngFor="let articulo  of articulos| paginate: { itemsPerPage: itemsPP, currentPage: p }"   style="cursor: pointer;">
+                                                    <div class="card" (click)="select(articulo)">
+                                                     
+                                                        <div class="card-body">
+                                                            <div class="media mb-3">
+                                                                <a >
+                                                                    <img class="rounded mr-3"  width="86" src="assets/gymove/images/not.jpg" alt="" *ngIf="articulo.images===undefined">
+                                                                    <!-- <img class="rounded mr-3"  width="86" src="{{dist.images[0]}}" alt="" *ngIf="dist.images[0]!==undefined"> -->
+                                                              
+                                                                
+                                                                </a>
+                                                                <div class="media-body">
+                                                                    <h6 class="fs-16 font-w500"><a  class="text-black">{{articulo.arnombre}}</a></h6>
+                                                                
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                       
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="profile-settings" class="tab-pane fade">
+                                        <div class="pt-3">
+                                            <div class="settings-form">
+                                                <h4 class="text-primary">Account Setting</h4>
+                                                <form>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>Email</label>
+                                                            <input type="email" placeholder="Email" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Password</label>
+                                                            <input type="password" placeholder="Password" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Address</label>
+                                                        <input type="text" placeholder="1234 Main St" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Address 2</label>
+                                                        <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>City</label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label>State</label>
+                                                            <select class="form-control default-select" id="inputState">
+                                                                <option selected="">Choose...</option>
+                                                                <option>Option 1</option>
+                                                                <option>Option 2</option>
+                                                                <option>Option 3</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-2">
+                                                            <label>Zip</label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="gridCheck">
+                                                            <label class="custom-control-label" for="gridCheck"> Check me out</label>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-primary" type="submit">Sign
+                                                        in</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->el siguiente paso es transferir de fondos a spot
+                            <div class="modal fade" id="replyModal">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Post Reply</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <textarea class="form-control" rows="4">Message</textarea>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Reply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3" [hidden]="!artSelected">
+                <div class="card">
+                    <div class="card-body" *ngIf="dists!==undefined">
+                        <img src="{{yeoman.preview.images[0]}}" alt="" class="img-fluid mt-4 mb-4 w-100">
+                        <div class="profile-statistics mb-5">
+                            <div class="text-center">
+                                <div class="row" *ngFor="let dist of dists;let i =index;" [hidden]="yeoman.indexPreviewDist!=i">
+                                    <div class="col" >
+                                        <h4 class="m-b-0">{{ selected.arcodigo}}</h4><span></span>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="m-b-0">{{ selected.arnombre}}</h4><span></span>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                            <div class="modal fade" id="sendMessageModal">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Send Message</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="comment-form">
+                                                <div class="row"> 
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="text-black font-w600">Name <span class="required">*</span></label>
+                                                            <input type="text" class="form-control" value="Author" name="Author" placeholder="Author">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="text-black font-w600">Email <span class="required">*</span></label>
+                                                            <input type="text" class="form-control" value="Email" placeholder="Email" name="Email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label class="text-black font-w600">Comment</label>
+                                                            <textarea rows="8" class="form-control" name="comment" placeholder="Comment"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-0">
+                                                            <input type="submit" value="Post Comment" class="submit btn btn-primary" name="submit">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

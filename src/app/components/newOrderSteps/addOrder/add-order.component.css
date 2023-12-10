@@ -1,0 +1,53 @@
+.tooltip {
+    position: fixed;
+    top: 50%; /* Ajusta la posición vertical */
+    left: 50%; /* Ajusta la posición horizontal */
+    transform: translate(-50%, -50%); /* Centra el elemento en la pantalla */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
+  }
+
+  /* Cuando los precios son iguales */
+.precio-igual {
+  color: inherit; /* Usa el color por defecto del texto */
+}
+
+/* Cuando los precios son diferentes */
+.precio-diferente {
+  color: #06b89d; /* Cambia el color del texto a verde */
+  font-size: 1.2em; /* Cambia el tamaño de fuente, ajusta según lo necesites */
+}
+.text-green-mod {
+  color: #06b89d; /* Cambia el color del texto a verde */
+}
+
+/* Tachar el precio original */
+.precio-tachado {
+  text-decoration: line-through; /* Tacha el texto */
+  color: gray;
+}
+
+.cardV {
+
+
+  transition: transform 0.3s ease-in-out; /* Transición suave para el efecto de escala */
+}
+
+/* Estilo de las tarjetas cuando se pasa el mouse sobre ellas */
+.cardV:hover {
+  transform: scale(1.05); /* Escala la tarjeta al 105% del tamaño original */
+  /* rgba(0, 0, 0, 0.2) */
+  box-shadow: 0 0 78px rgb(198 198 214 / 33%);
+}
+.row:hover .image-container {
+  transform: scale(2.2); /* Ajusta el factor de escala según tus preferencias */
+  transition: transform 0.3s; /* Agrega una transición suave */
+}
+
+/* Estilo para aplicar la transformación de escala solo al td con la clase .image-td */
+.image-td:hover .image-container {
+  transform: scale(2.2); /* Ajusta el factor de escala según tus preferencias */
+  transition: transform 0.3s; /* Agrega una transición suave */
+}
+  

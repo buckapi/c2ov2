@@ -1,0 +1,76 @@
+<ngx-ui-loader [pbColor]="'#0A60C2'"  [bgsColor]="'#0A60C2'"[fgsColor]="'#0A60C2'"[text]="'Consultando información, por favor espere...'"
+[fgsSize]="15"[fgsType]= "'cube-grid'"[textColor]="'#0A60C2'"[overlayColor]="' rgba(255,255,255,0.8)'" 
+
+></ngx-ui-loader>   
+<div class="content-body">
+    <div class="container-fluid">
+      
+        <table class="table table-striped table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>Clientes</th>
+                </tr>
+            </thead>
+            <tbody id="customers" *ngIf="clientes[0]!==undefined">
+                <tr class="btn-reveal-trigger" *ngFor="let cliente  of yeoman.clientes; let i =index" [hidden]="((search.clienteFiltered && !cliente.clnombre.toLowerCase().includes(search.cliente.toLowerCase())))">
+
+                    <td class="py-3">
+                        <a>
+                            <div class="media d-flex align-items-center">
+                                <div class="avatar avatar-xl mr-2">
+                                    <div class=""><img class="rounded-circle img-fluid"
+                                            src="assets/gymove/images/not.jpg" width="30" alt="" />
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                  
+                                    <h5 class="mb-0 fs--1" style="cursor: pointer;">{{cliente.clnombre}} </h5>
+
+
+                                </div>
+
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#aAddDietMenus" style="cursor: pointer;"
+                        (click)="selectCli(cliente)" [hidden]="cliente.status === 'active' || cliente.status === 'unavailable'">
+                        Activar acceso
+                    </button>
+                    <span class="badge light badge-success"
+                    [hidden]="cliente.status === 'unactive' || cliente.status === undefined  || cliente.status === 'unavailable'">
+                    Cuenta Activa
+                </span>
+                <span (click)="selectCli(cliente)"  class="badge light badge-warning" data-toggle="modal" data-target="#aAddDietMenus3" style="cursor: pointer;"
+                [hidden]="cliente.status === 'unactive' || cliente.status === undefined  || cliente.status === 'unavailable'">
+                resetear contraseña
+            </span>
+                <span class="text-danger"  [hidden]="cliente.status === 'unactive' || cliente.status === 'active'  || cliente.status === undefined    ">
+                    
+                    Acceso suspendido
+                </span>
+                    </td>
+                    <td>
+                        
+                      
+                    
+                        <button class="btn  btn-outline-danger btn-xs" (click)="suspend(cliente)"
+                            [hidden]="cliente.status === 'unactive' || cliente.status === undefined ||  cliente.status === 'unavailable'   "
+                            (click)="suspend(i)" style="cursor: pointer; padding-top: 5px;">
+                            Suspender acceso
+                        </button>
+                        <span [hidden]="cliente.status === 'unactive' || cliente.status === undefined ||  cliente.status === 'active'   ">
+                          
+                            <button class="btn light btn-outline-secondary btn-xs" (click)="reactivate(cliente)" (click)="suspend(i)"
+                                style="cursor: pointer;">
+                                restablecer acceso
+                            </button>
+                        </span>
+                    
+                    </td>
+                    </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,213 @@
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li routerLink="../orders" class="breadcrumb-item"><a href="javascript:void(0)">Órdenes</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Detalle</a></li>
+            </ol>
+        </div>
+        <div class="row" *ngIf="yeoman.previewOrder">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"> Detalle de orden
+                        <span class="float-right">
+                            <strong>Status:</strong> {{yeoman.previewOrder.status}}
+                            <br />
+                            <strong>{{yeoman.previewOrder.createdAt | date: 'dd MMMM yyyy' }} a las
+                                {{yeoman.previewOrder.createdAt | date: ' h:mm a' }}</strong>
+
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-5">
+                            <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xl-4">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-9">
+                                        <div class="brand-logo mb-3">
+                                            <img class="logo-abbr mr-2" src="assets/gymove/images/logo.png" alt="">
+                                            <img class="logo-compact" src="assets/gymove/images/logo-text.png" alt="">
+                                        </div>
+                                        <span>
+                                            Orden #:
+                                            <strong>{{yeoman.previewOrder.ref}}</strong></span><br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xl-4">
+                                <h6></h6>
+                                <div> <strong></strong> </div>
+                            </div>
+
+                            <div
+                                class="mt-4 col-xl-3 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-center justify-content-xs-start">
+                                <h6>Cliente: <strong>{{yeoman.previewOrder.clientEmail}}</strong> </h6>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th class="center">#</th>
+                                        <th>Articulo</th>
+                                        <th class="right">Precio</th>
+                                        <th class="right">Dcto</th>
+                                        <th class="right">IVA</th>
+                                        <th class="center">Cantidad</th>
+                                        <th class="right">Sub-Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let articulo of yeoman.previewOrder.order; let i = index"
+                                        [ngStyle]="{'background-color': i === -1 ? 'white' : ''}"
+                                        [hidden]="articulo.articulo.arnombre === undefined">
+                                        <td class="center">{{i+1}}</td>
+                                        <td class="left strong">{{articulo.articulo.arnombre}}</td>
+                                        <td>
+                                            <span *ngIf=" (!articulo.articulo.precioConDescuento && !articulo.articulo.ardescuento) || (!articulo.articulo.ardescuento && articulo.articulo.descuentoIndex==-1) 
+                                            ">
+                                                {{articulo.articulo.arprecio | number:'1.2-2' }}
+                                            </span>
+                                            <span [hidden]="articulo.precioConDescuento ||  (!articulo.articulo.precioConDescuento && !articulo.articulo.ardescuento) || (!articulo.articulo.ardescuento && articulo.articulo.descuentoIndex==-1) 
+                                            ">
+                                                {{articulo.articulo.arprecio | number:'1.2-2' }}
+                                            </span>
+                                            <span
+                                                [hidden]="(!articulo.articulo.precioConDescuento && !articulo.articulo.ardescuento) || (!articulo.articulo.ardescuento && articulo.articulo.descuentoIndex==-1)  ">
+
+                                                <span class="precio-tachado">
+                                                    {{articulo.articulo.arprecio | number:'1.2-2' }}
+                                                </span>
+                                                <span class="precio-diferente">
+                                                    {{articulo.precioConDescuento | number:'1.2-2' }} </span>
+                                            </span>
+                                        </td>
+                                        <td class="right">
+                                            <span *ngIf="articulo  && articulo.articulo.descuentoIndex>=-1 
+                                                && articulo.articulo.descuentoPorcentaje
+                                                && articulo.articulo.descuentoPorcentaje[articulo.articulo.descuentoIndex] 
+                                                && articulo.articulo.arcodigo 
+                                                && articulo.articulo.descuentoPorcentaje">
+                                                {{ (articulo.articulo.arprecio
+                                                *(articulo.articulo.descuentoPorcentaje[articulo.articulo.descuentoIndex]
+                                                + articulo.articulo.ardescuento) / 100) |
+                                                number:'1.2-2' }}
+                                                <!-- <span style="color: black;">
+                                                    ( {{ articulo.articulo.ardescuento +
+                                                    articulo.articulo.descuentoPorcentaje[articulo.articulo.descuentoIndex]}}
+                                                    %)
+                                                </span>
+                                                <br />
+                                                ( <span style="color: black;">{{ articulo.articulo.ardescuento }}
+                                                    %</span> +<span style="color: blueviolet;">{{
+                                                    articulo.articulo.descuentoPorcentaje[articulo.articulo.descuentoIndex]}}
+                                                    %
+                                                    <span style="color: blueviolet;">
+                                                        [DP]
+                                                    </span>
+                                                </span> ) -->
+                                            </span>
+                                            <span
+                                                *ngIf="articulo.articulo.ardescuento>0 && articulo.articulo.descuentoIndex==-1">
+                                                {{ articulo.articulo.arprecio * articulo.articulo.ardescuento / 100 |
+                                                number:'1.2-2' }}
+                                                (
+                                                <span style="color: black;">
+                                                    {{articulo.articulo.ardescuento}}
+                                                </span>
+                                                %)
+                                            </span>
+                                            <span
+                                                *ngIf="articulo.articulo.descuentoIndex>-1  && articulo.articulo.ardescuento<=0">
+                                                {{ (articulo.precioConDescuento *
+                                                articulo.articulo.descuentoPorcentaje[articulo.articulo.descuentoIndex]
+                                                / 100) |
+                                                number:'1.2-2' }}
+                                                (
+                                                <span style="color: #000;">
+
+                                                    {{articulo.articulo.descuentoPorcentaje[articulo.articulo.descuentoIndex]}}
+
+                                                </span> %)
+                                            </span>
+                                            <span *ngIf="!articulo.precioConDescuento
+                                            
+                                            || (!articulo.articulo.precioConDescuento && !articulo.articulo.ardescuento) || (!articulo.articulo.ardescuento && articulo.articulo.descuentoIndex==-1) 
+                                            ">
+                                                Sin descuento
+
+                                            </span>
+                                        </td>
+                                        <td class="right">
+                                            <span
+                                                *ngIf="articulo.precioConDescuento !==undefined && articulo.articulo.arcodigo !==undefined ">
+                                                {{articulo.precioConDescuento*articulo.articulo.ariva /100 |
+                                                number:'1.2-2'}} ({{articulo.articulo.ariva}} %)
+                                            </span>
+                                            <span
+                                                *ngIf="articulo.precioConDescuento ===undefined && articulo.articulo.arcodigo !==undefined ">
+                                                {{articulo.articulo.arprecio*articulo.articulo.ariva /100 |
+                                                number:'1.2-2'}} ({{articulo.articulo.ariva}} %)
+                                            </span>
+                                        </td>
+                                        <td class="center" style="text-align: center;">{{articulo.cantidad}}</td>
+                                        <td class="right" style="text-align: right;">
+                                            <span *ngIf=" (!articulo.articulo.precioConDescuento && !articulo.articulo.ardescuento) || (!articulo.articulo.ardescuento && articulo.articulo.descuentoIndex==-1) 
+                                            ">
+                                                {{(articulo.articulo.arprecio +
+                                                (articulo.articulo.arprecio*(articulo.articulo.ariva /
+                                                100)))*articulo.cantidad | number:'1.2-2' }}
+                                            </span>
+                                            <span [hidden]="articulo.precioConDescuento ||  (!articulo.articulo.precioConDescuento && !articulo.articulo.ardescuento) || (!articulo.articulo.ardescuento && articulo.articulo.descuentoIndex==-1) 
+                                            ">
+                                                {{(articulo.articulo.arprecio +
+                                                (articulo.articulo.arprecio*(articulo.articulo.ariva /
+                                                100)))*articulo.cantidad | number:'1.2-2' }}
+                                            </span>
+                                            <span
+                                                [hidden]="(!articulo.articulo.precioConDescuento && !articulo.articulo.ardescuento) || (!articulo.articulo.ardescuento && articulo.articulo.descuentoIndex==-1)  ">
+                                                <span>
+                                                    {{(articulo.precioConDescuento +
+                                                    (articulo.precioConDescuento*(articulo.articulo.ariva /
+                                                    100)))*articulo.cantidad| number:'1.2-2' }} </span>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-5"> </div>
+                            <div class="col-lg-4 col-sm-5 ml-auto">
+                                <table class="table table-clear">
+                                    <tbody>
+                                        <tr>
+                                            <td class="left" style="text-align: right;"><strong>Sub-total</strong></td>
+                                            <td class="right" style="text-align: right;">{{yeoman.previewOrder.total | number: '1.2-2' }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left" style="text-align: right;"><strong>Descuento</strong></td>
+                                            <td class="right" style="text-align: right;">{{ yeoman.previewOrder.totalDescuento | number:'1.2-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left" style="text-align: right;"><strong>IVA </strong></td>
+                                            <td class="right" style="text-align: right;">{{yeoman.previewOrder.totalIVA | number: '1.2-2' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left" style="text-align: right;"><strong>Total</strong></td>
+                                            <td class="right" style="text-align: right;"><strong>{{ yeoman.previewOrder.total +
+                                                    yeoman.previewOrder.totalIVA | number:'1.2-2'}}</strong><br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
